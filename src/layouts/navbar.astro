@@ -1,0 +1,56 @@
+---
+import AllfindIcon from '../components/allfind-icon.astro'
+import MoonIcon from '../components/moon-icon.astro'
+import SearchIcon from '../components/search-icon.astro'
+import MenuIcon from '../components/menu-icon.astro'
+import NavButton from '../components/nav-button.astro'
+---
+
+<nav>
+  <AllfindIcon/>
+  <div class="container-search">
+    <input type="search" name="" id="">
+    <NavButton>
+      <SearchIcon color="currentColor"/>
+    </NavButton>
+  </div>
+  <div class="container-btn">
+    <NavButton>
+      <MoonIcon color="currentColor"/>
+    </NavButton>
+    <NavButton>
+      <MenuIcon color="currentColor"/>
+    </NavButton>
+  </div>
+</nav>
+
+<style>
+  nav {
+    width: 100%;
+    padding: 10px 30px;
+    background-color: #F8F8FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 1px solid red; */
+  }
+
+  input[type='search'] {
+    padding: 5px;
+    width: 100%;
+  }
+  
+  .container-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 60%;
+  }
+
+  .container-btn {
+    width: 80px;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: orange; */
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+const { name } = Astro.props;
+const { src } = Astro.props;
+const { alt } = Astro.props;
+const { category } = Astro.props;
+
+import StarIcon from "./star-icon.astro";
+---
+
+<article class="container">
+  <img src={src} alt={alt}>
+  <h3>{name}</h3>
+  <div class="stars">
+    <StarIcon/>
+    <StarIcon/>
+    <StarIcon/>
+    <StarIcon/>
+    <StarIcon/>
+  </div>
+  <span class="reviews"><em>15 reviews</em></span>
+  <span class="category">{category}</span>
+  <a href="#">Contact</a>
+</article>
+
+<style>
+  article.container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #aaa;
+    background-color: #fff;
+  }
+
+  a {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #1164B4;
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color .2s ease;
+    &:hover {
+      background-color: #0b4983;
+    }
+  }
+
+  img {
+    width: 200px;
+    height: 150px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    object-fit: cover;
+  }
+
+  div.stars {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    /* color: #fff; */
+    margin: 10px 0;
+  }
+
+  .reviews {
+    margin-bottom: 15px;
+    color: gray;
+    display: block;
+    font-size: smaller;
+  }
+
+  span.category {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: slateblue;
+    color: #fff;
+    font-size: small;
+  }
+</style>
