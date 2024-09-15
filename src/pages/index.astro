@@ -1,23 +1,8 @@
 ---
-import Layout from '../layouts/layout.astro';
-import Nav from '../layouts/navbar.astro';
-import Categories from '../layouts/categories.astro';
-import Section from '../layouts/section.astro';
-import Profile from '../components/profile.astro';
+import Layout from "../layouts/layout.astro";
+import Login from "../layouts/login.astro";
 ---
 
-<Layout title="AllFind">
-	<Nav></Nav>
-	<Categories />
-	<main>
-		<Section title="Personas">
-			<Profile src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwcBqoZP6wkbFvU81aF-OHJWLAUGa6oZQXLg&s" alt="Foto de Alberto Rios" name="Alberto Rios" category="Abogado"/>
-			<Profile src="https://www.torresphotostudio.com/wp-content/uploads/2024/07/Fotos-para-LinkedIn-en-Lima-33.jpg" alt="Foto de Marcos Molina" name="Marcos Molina" category="Medico"/>
-			<Profile src="https://klik.mx/wp-content/uploads/2023/06/Pefil-Ejecutivo.jpg" alt="Foto de Jessica Rivera" name="Jessica Rivera" category="Secretaria"/>
-			<Profile src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1q-Z4lgRy9kZLQZr29rGBMWUuFQyNHe9izha8eaAyzm3uP_A2j670-jW8_Zp92K3iHpQ&usqp=CAU" alt="Foto de Monica Freudch" name="Monica Freudch" category="Ingeniero"/>
-			<Profile src="https://thumbs.dreamstime.com/b/imagem-do-perfil-trabalhador-masculino-caucasiano-que-se-posiciona-no-escrit%C3%B3rio-jovem-feliz-olha-para-c%C3%A2mera-coloca-local-de-190186649.jpg" alt="Foto de Juan Lopez" name="Juan Lopez" category="Electricista"/>
-		</Section>
-		<Section title="Negocios">
-		</Section>
-	</main>
+<Layout title="Project's name">
+  <Login/>
 </Layout>

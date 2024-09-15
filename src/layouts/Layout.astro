@@ -1,45 +1,54 @@
 ---
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<div class="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="max-w-full">
+    <slot />
+  </body>
 </html>
 <style is:global>
-	@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-	:root {
-		--bg-light: #F8F8FF;
-		--bg-dark: #1B1B1B;
-		--color-light: #000;
-		--color-dark: #fff;
-	}
-	
-	*,
-	*::after,
-	*::before {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
+  @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
-	html {
-		font-family: 'Rubik', system-ui, sans-serif;
-		color: var(--color-light);
-	}
+  :root {
+    --bg-light: #f8f8ff;
+    --bg-dark: #1b1b1b;
+    --color-light: #000;
+    --color-dark: #fff;
+  }
+
+  *,
+  *::after,
+  *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--color-light);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+		font-family: "Playfair Display", system-ui, sans-serif;
+  }
 </style>
