@@ -41,26 +41,4 @@
     </form>
   </div>
 </main>
-
-<!-- TODO: "Revisar el código JavaScript para ver si se puede mover a un archivo aparte y evitar posibles errores detectados por Visual Studio Code." -->
-<script>document.getElementById('login-form').addEventListener('submit', async function(event) {
-  event.preventDefault();
-  const form = event.target;
-  const formData = new FormData(form);
-
-  const response = await fetch('/api/auth/login', {
-    method: 'POST',
-    body: formData,
-  });
-
-  const result = await response.json();
-  const errorMessageElement = document.getElementById('error-message');
-
-  if (response.ok) {
-    
-    window.location.href = '/succesfull';
-  } else {
-    errorMessageElement.textContent = result.error;
-    errorMessageElement.style.display = 'block';
-  }
-});</script>
+<script type="module" src="../lib/auth.js"></script>

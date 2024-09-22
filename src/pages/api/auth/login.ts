@@ -1,5 +1,8 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../../lib/supabase";
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = 'Y29WDusaCmjASKsHOlz6oAFJxbrK4gtmLdYfeyxDWpwa9uiIYfR8Vr3xdA+hBD8mqJXHxe7h/SI+z31ylZxM0w=='; // Asegúrate de usar una clave secreta segura
 
 export const POST: APIRoute = async ({ request }) => {
   const formData = await request.formData();
@@ -21,9 +24,8 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (data && data.password === password) {
-    const accessToken = "token-acceso-temporal";
-    const refreshToken = "token-refresh-temporal";
-    return new Response(JSON.stringify({ success: true, accessToken, refreshToken }), { status: 200 });
+    const accessToken = jwt.sign({ email: data.email }, JWT_SECRET, { expiresIn: '12h' });
+    return new Response(JSON.stringify({ success: true, accessToken }), { status: 200 });
   } else {
     return new Response(JSON.stringify({ error: "Correo o contraseña inválidos." }), { status: 401 });
   }
