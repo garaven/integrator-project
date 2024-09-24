@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Categoria from "../components/Categoria.astro";
 import { supabase } from "../lib/supabase";
 
 const { cookies, redirect } = Astro;
@@ -28,10 +29,65 @@ if (error) {
 }
 
 const email = data?.user?.email;
+
+const { data: negocios, error: errorNegocio } = await supabase
+  .from("negocios")
+  .select("*");
+
+  if (error) {
+    return errorNegocio;
+  }
+
+async function obtenerCategorias(negocio_id:any) {
+  const { data: categorias, error: errorCategoria } = await supabase
+  .rpc('obtener_categorias_de_negocio', { negocio_id: negocio_id })
+  if (errorCategoria) {
+    return errorCategoria;
+  }
+  return categorias;
+}
 ---
 
 <Layout title="Login Exitoso.">
-
+  <div class="py-12 px-5">
+    <h1 class="font-bold text-2xl mb-4 md:text-3xl lg:text-4xl">
+      Listado de productos
+    </h1>
+    <section class="flex flex-col gap-1">
+      {
+        negocios?.map((negocio) => (
+          <article class="flex justify-between items-center border border-slate-300 py-3 px-2 rounded-lg md:py-5 md:px-4 lg:py-8 lg:px-6">
+            <div class="flex gap-2 items-center">
+              <div class="border rounded-full bg-green-100 size-12 md:size-16 lg:size-20"></div>
+              <div>
+                <h2 class="font-semibold text-sm mb-0.5 md:text-xl md:mb-2 lg:text-2xl">
+                  {negocio.nombre}
+                </h2>
+                <div class="flex gap-2 items-center">
+                  {
+                    obtenerCategorias(negocio.id).then((categorias) => {
+                      return categorias.map((categoria:any) => (
+                        <Categoria
+                          categoria={categoria.nombre}
+                          key={categoria.id}
+                        />
+                      ));
+                    })
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-1.5">
+              <button class="p-1 text-xs text-blue-500 transition-colors hover:bg-blue-50 border border-current rounded-md md:text-base md:mr-2 lg:text-xl">
+                Editar
+              </button>
+              <button class="p-1 text-xs text-red-500 transition-colors hover:bg-red-50 border border-current rounded-md md:text-base lg:text-xl">
+                Eliminar
+              </button>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+  </div>
 </Layout>
-
-<h1> Credenciales validadas. El login ha sido exitoso.</h1>
