@@ -1,6 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Login from "../layouts/login.astro";
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (accessToken && refreshToken) {
+  return redirect("/succesfull");
+}
 ---
 
 <Layout title="Project's name">
