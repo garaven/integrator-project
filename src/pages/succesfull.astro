@@ -1,6 +1,6 @@
 ---
+import EditSection from "../components/EditSection.astro";
 import Layout from "../layouts/Layout.astro";
-import Categoria from "../components/Categoria.astro";
 import { supabase } from "../lib/supabase";
 
 const { cookies, redirect } = Astro;
@@ -34,13 +34,15 @@ const { data: negocios, error: errorNegocio } = await supabase
   .from("negocios")
   .select("*");
 
-  if (error) {
-    return errorNegocio;
-  }
+if (error) {
+  return errorNegocio;
+}
 
-async function obtenerCategorias(negocio_id:any) {
-  const { data: categorias, error: errorCategoria } = await supabase
-  .rpc('obtener_categorias_de_negocio', { negocio_id: negocio_id })
+async function obtenerCategorias(negocio_id: any) {
+  const { data: categorias, error: errorCategoria } = await supabase.rpc(
+    "obtener_categorias_de_negocio",
+    { negocio_id: negocio_id }
+  );
   if (errorCategoria) {
     return errorCategoria;
   }
@@ -49,50 +51,173 @@ async function obtenerCategorias(negocio_id:any) {
 ---
 
 <Layout title="Login Exitoso.">
-  <div class="py-12 px-5">
-    <h1 class="font-bold text-2xl mb-4 md:text-3xl lg:text-4xl">
-      Listado de productos
-    </h1>
-    <section class="flex flex-col gap-1">
-      {
-        negocios?.map((negocio) => (
-          <article class="flex justify-between items-center border border-slate-300 py-3 px-2 rounded-lg md:py-5 md:px-4 lg:py-8 lg:px-6">
-            <div class="flex gap-2 items-center">
-              <div class="border rounded-full bg-green-100 size-12 md:size-16 lg:size-20"></div>
-              <div>
-                <h2 class="font-semibold text-sm mb-0.5 md:text-xl md:mb-2 lg:text-2xl">
-                  {negocio.nombre}
-                </h2>
+  <div class="flex max-h-screen overflow-x-hidden overflow-y-hidden">
+    <div class="py-12 px-5 flex-grow" id="main-section">
+      <header class="flex justify-between items-center mb-10">
+        <h1 class="font-bold text-2xl md:text-3xl lg:text-4xl">Dashboard</h1>
+        <!--*Botón para cerrar sesión (Modificar ubicación y aspecto.) -->
+        <form action="/api/auth/signout">
+          <button
+            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+            type="submit">Cerrar Sesión</button
+          >
+        </form>
+      </header>
+
+      <div class="flex justify-between items-start mb-6">
+        <h2 class="text-start text-2xl font-semibold">Negocios</h2>
+        <div class="flex gap-3">
+          <!-- Barra de busqueda -->
+          <div class="relative inline-flex items-center">
+            <input
+              class="border border-gray-500 rounded-lg w-72 py-2 px-3"
+              type="text"
+              name=""
+              id=""
+              placeholder="Buscar..."
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="stroke-gray-500 absolute right-2 pointer-events-none"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path
+                d="M21 21l-6 -6"></path></svg
+            >
+          </div>
+
+          <!-- Selector de categorias -->
+          <div class="relative inline-flex items-center">
+            <select
+              class="border text-gray-500 border-gray-500 rounded-lg w-72 py-2 px-3 appearance-none bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="todas" selected>Todas las categorias</option>
+              <option value="categoria1"> Categoría 1 </option>
+              <option value="categoria2"> Categoría 2 </option>
+              <option value="categoria3"> Categoría 3 </option>
+              <option value="categoria4"> Categoría 4 </option>
+              <option value="categoria5"> Categoría 5 </option>
+            </select>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute right-2 stroke-gray-500 pointer-events-none"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M6 9l6 6l6 -6"></path></svg
+            >
+          </div>
+
+          <!-- Selector de estado -->
+          <div class="relative inline-flex items-center">
+            <select
+              class="border text-gray-500 border-gray-500 rounded-lg w-32 py-2 px-3 appearance-none bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="activos" selected> Activos </option>
+              <option value="inactivos"> Inactivos </option>
+            </select>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute right-2 stroke-gray-500 pointer-events-none"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M6 9l6 6l6 -6"></path></svg
+            >
+          </div>
+
+          <!-- Boton de pliegue y despliegue de la sección de editar negocio -->
+          <div
+            id="boton-redimension"
+            class="inline-flex items-center justify-center text-gray-500 hover:text-gray-800 hover:border-gray-800 transition-all duration-300 p-1 border border-gray-400 rounded-md cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="rotate-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevrons-right"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M7 7l5 5l-5 5"></path><path d="M13 7l5 5l-5 5"></path></svg
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full">
+        <section
+          class="flex flex-1 flex-col gap-1 max-h-screen overflow-y-scroll"
+        >
+          {
+            negocios?.map((negocio) => (
+              <article class="flex justify-between items-center border border-slate-300 py-3 px-2 rounded-lg md:py-5 md:px-4 lg:py-8 lg:px-6">
                 <div class="flex gap-2 items-center">
-                  {
-                    obtenerCategorias(negocio.id).then((categorias) => {
-                      return categorias.map((categoria:any) => (
-                        <Categoria
-                          categoria={categoria.nombre}
-                          key={categoria.id}
-                        />
-                      ));
-                    })
-                  }
+                  <div class="border rounded-full bg-green-100 size-12 md:size-16 lg:size-20" />
+                  <div>
+                    <h2 class="font-semibold text-sm mb-0.5 md:text-xl md:mb-2 lg:text-2xl">
+                      {negocio.nombre}
+                    </h2>
+                    <div class="flex gap-2 items-center">
+                      {obtenerCategorias(negocio.id).then((categorias) => {
+                        return categorias.map((categoria: any) => (
+                          <span class="text-indigo-500 border border-current py-0.5 px-2 rounded-full text-xs md:text-sm lg:text-base">
+                            {categoria.nombre}
+                          </span>
+                        ));
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="flex gap-1.5">
-              <button class="p-1 text-xs text-blue-500 transition-colors hover:bg-blue-50 border border-current rounded-md md:text-base md:mr-2 lg:text-xl">
-                Editar
-              </button>
-              <button class="p-1 text-xs text-red-500 transition-colors hover:bg-red-50 border border-current rounded-md md:text-base lg:text-xl">
-                Eliminar
-              </button>
-            </div>
-          </article>
-        ))
-      }
-    </section>
-    <!--*Botón para cerrar sesión (Modificar ubicación y aspecto.) -->
-    <form action="/api/auth/signout">
-    
-      <button type="submit">Cerrar Sesión</button>
-    </form>
+                <div class="flex gap-1.5">
+                  <button class="p-1 text-xs text-blue-500 transition-colors hover:bg-blue-50 border border-current rounded-md md:text-sm md:mr-2 lg:text-base">
+                    Editar
+                  </button>
+                  <button class="p-1 text-xs text-red-500 transition-colors hover:bg-red-50 border border-current rounded-md md:text-sm lg:text-base">
+                    Eliminar
+                  </button>
+                </div>
+              </article>
+            ))
+          }
+        </section>
+      </div>
+    </div>
+    <div id="edit-section">
+      <EditSection />
+    </div>
   </div>
 </Layout>
+
+<script>
+  const botonRedimension = document.getElementById("boton-redimension");
+  botonRedimension?.addEventListener("click", () => {
+    document.getElementById("main-section")?.classList.toggle("w-full");
+    document.getElementById("edit-section")?.classList.toggle("hidden");
+    document.getElementById("rotate-icon")?.classList.toggle("rotate-180");
+  });
+</script>

@@ -1,0 +1,47 @@
+<aside class="p-6 bg-white rounded-lg border max-h-screen overflow-y-scroll">
+  <h1 class="mb-6 text-3xl font-bold text-center">Editar negocio</h1>
+
+  <label class="block mb-2 font-medium" for="">Nombre</label>
+  <input class="mb-4 p-2 border border-gray-300 rounded-md w-full" required type="text">
+
+  <label class="block mb-2 font-medium" for="">Descripción</label>
+  <textarea class="mb-4 p-2 border border-gray-300 rounded-md w-full" required cols="30" rows="5"></textarea>
+
+  <label class="block mb-2 font-medium" for="">WhatsApp</label>
+  <input class="mb-4 p-2 border border-gray-300 rounded-md w-full" required type="tel">
+
+  <label class="block mb-2 font-medium" for="">Instagram</label>
+  <input class="mb-4 p-2 border border-gray-300 rounded-md w-full" required type="url">
+
+  <label class="block mb-2 font-medium" for="">Facebook</label>
+  <input class="mb-4 p-2 border border-gray-300 rounded-md w-full" required type="url">
+
+  <div class="flex gap-4 items-end mb-4">
+    <div class="flex-1">
+      <label class="block mb-2 font-medium" for="">Hora de apertura</label>
+      <input class="p-2 border border-gray-300 rounded-md w-full" required type="time">
+    </div>
+
+    <div class="flex-1">
+      <label class="block mb-2 font-medium" for="">Hora de cierre</label>
+      <input class="p-2 border border-gray-300 rounded-md w-full" required type="time">
+    </div>
+  </div>
+
+  <label class="block mb-2 font-medium" for="">Categorías</label>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 1</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 2</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 3</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 4</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 5</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 6</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 7</span>
+    <span class="text-sm border border-gray-300 py-1 px-2 rounded-md inline-block">Categoría 8</span>
+  </div>
+
+  <div class="flex justify-between">
+    <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Cancelar</button>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" type="submit">Modificar</button>
+  </div>
+</aside>
