@@ -1,7 +1,13 @@
 ---
 import EditSection from "../components/EditSection.astro";
 import Layout from "../layouts/Layout.astro";
+import { ButtonDelete } from "../components/ButtonDelete";
+import { ButtonUpdate } from "../components/ButtonUpdate";
 import { supabase } from "../lib/supabase";
+
+// console.log(supabase);
+// console.log(import.meta.env.VITE_SUPABASE_URL);
+// console.log(import.meta.env.VITE_SUPABASE_ANON_KEY);
 
 const { cookies, redirect } = Astro;
 
@@ -194,12 +200,8 @@ async function obtenerCategorias(negocio_id: any) {
                   </div>
                 </div>
                 <div class="flex gap-1.5">
-                  <button class="p-1 text-xs text-blue-500 transition-colors hover:bg-blue-50 border border-current rounded-md md:text-sm md:mr-2 lg:text-base">
-                    Editar
-                  </button>
-                  <button class="p-1 text-xs text-red-500 transition-colors hover:bg-red-50 border border-current rounded-md md:text-sm lg:text-base">
-                    Eliminar
-                  </button>
+                  <ButtonUpdate client:visible id={negocio.id} />
+                  <ButtonDelete client:visible id={negocio.id} />
                 </div>
               </article>
             ))
@@ -214,6 +216,8 @@ async function obtenerCategorias(negocio_id: any) {
 </Layout>
 
 <script>
+  import { supabase } from "../lib/supabase";
+
   const botonRedimension = document.getElementById("boton-redimension");
   botonRedimension?.addEventListener("click", () => {
     document.getElementById("main-section")?.classList.toggle("w-full");
